@@ -89,11 +89,8 @@ def _load_pyrex(name, filename):
 
 
 def get_distutils_extension(modname, pyxfilename, language_level=None):
-#    try:
-#        import hashlib
-#    except ImportError:
-#        import md5 as hashlib
-#    extra = "_" + hashlib.md5(open(pyxfilename).read()).hexdigest()
+#    import hashlib
+#    extra = "_" + hashlib.sha256(open(pyxfilename).read()).hexdigest()
 #    modname = modname + extra
     extension_mod,setup_args = handle_special_build(modname, pyxfilename)
     if not extension_mod:

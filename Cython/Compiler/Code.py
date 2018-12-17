@@ -23,11 +23,8 @@ from string import Template
 from functools import partial
 from contextlib import closing
 from collections import defaultdict
+import hashlib
 
-try:
-    import hashlib
-except ImportError:
-    import md5 as hashlib
 
 from . import Naming
 from . import Options
@@ -1879,7 +1876,7 @@ class CCodeWriter(object):
         include_dir = self.globalstate.common_utility_include_dir
         if include_dir and len(code) > 1024:
             include_file = "%s_%s.h" % (
-                name, hashlib.md5(code.encode('utf8')).hexdigest())
+                name, hashlib.sha256(code.encode('utf8')).hexdigest())
             path = os.path.join(include_dir, include_file)
             if not os.path.exists(path):
                 tmp_path = '%s.tmp%s' % (path, os.getpid())
